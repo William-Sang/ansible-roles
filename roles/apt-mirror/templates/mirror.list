@@ -1,0 +1,35 @@
+############# config ##################
+
+set base_path    {{ mirror_path }}
+
+# set mirror_path  $base_path/mirror
+# set skel_path    $base_path/skel
+# set var_path     $base_path/var
+# set cleanscript $var_path/clean.sh
+# set defaultarch  <running host architecture>
+# set postmirror_script $var_path/postmirror.sh
+# set run_postmirror 0
+set nthreads     20
+set _tilde 0
+#
+############# end config ##############
+
+# source setting
+#
+# For example
+# deb http://packages.elasticsearch.org/logstash/1.4/debian stable main
+#
+{% for source in source_list %}
+{{source}}
+{% endfor %}
+
+# clean setting
+#
+# For example
+# clean http://localhost/packages.elasticsearch.org
+#
+{% if clean_package_list is defined %}
+{% for clean_package in clean_package_list %}
+clean http://{{dns}}/{{clean_package}}
+{% endfor %}
+{% endif %}

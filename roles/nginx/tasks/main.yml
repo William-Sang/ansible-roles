@@ -1,0 +1,10 @@
+---
+- name: Install nginx
+  apt: name=nginx=1.4.6-1ubuntu3.1 state=present
+
+- name: Delete defalult nginx host configure file
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+- name: Set nginx host throuth template
+  template: src=site.conf dest=/etc/nginx/sites-enabled/site.conf owner=root group=root mode=0644
+  notify: Restart nginx

@@ -1,0 +1,40 @@
+---
+# apt-mirror的base 目录,不能以 / 结尾, 影响nginx目录
+mirror_path: /data
+# DNS 映射，影响nginx 和 apt-mirror clean 操作
+dns: localhost
+# 指定每日 几时几分同步
+syn_min: 0
+syn_hour: 3
+
+# 填入要同步的源
+source_list:
+    # logstash 源
+    - 'deb http://packages.elasticsearch.org/logstash/1.4/debian stable main'
+    # MongoDB源
+    - 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'
+    # Ubuntu 14.04 源
+    - 'deb http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu trusty-proposed main restricted universe multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu trusty-proposed main restricted universe multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse'
+
+# 对应以上域名
+#clean_package_list:
+#    - 'packages.elasticsearch.org'
+#    - 'downloads-distro.mongodb.org'
+#    - 'ubuntu'
+
+# 相关源链接:
+# *** logstash
+# http://www.logstash.net/docs/1.4.2/repositories
+# wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
+#
+# *** MongoDB
+# http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/

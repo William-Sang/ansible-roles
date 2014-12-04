@@ -1,0 +1,8 @@
+---
+- name: Install and pulish apt-mirror
+  hosts: apt-mirror
+  sudo: yes
+  roles:
+      - common
+      - apt-mirror
+      - nginx

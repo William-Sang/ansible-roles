@@ -1,0 +1,21 @@
+---
+- name: Install apt-mirror
+  apt: name=apt-mirror=0.5.1-1 state=present
+  register: apt_mirror_install_result
+
+- name: Prepare the mirror storage directory
+  file: path={{mirror_path}} state=directory recurse=yes owner=root group=root mode=0755
+
+- name: Set apt-mirror configuration file through template
+  template: src=mirror.list dest=/etc/apt/mirror.list owner=root group=root mode=0644
+  register: apt_mirror_install_result
+
+- name: Configure apt-mirror cron job, 每天3点同步
+  cron: name="apt-mirror" minute="{{syn_min}}" hour="{{syn_hour}}" job="/usr/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log"
+
+# 不用担心会和定时脚本冲突，因为运行两次apt-mirror，第二次会失败
+- name: Initilize the first SYN
+  shell: apt-mirror
+  when: apt_mirror_install_result.changed == true
+  async: 9999999
+  poll: 0

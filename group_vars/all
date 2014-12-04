@@ -1,0 +1,6 @@
+---
+
+# hosts connection setting
+# 设置远程服务器用户,和私钥
+ansible_ssh_user: ubuntu
+ansible_ssh_private_key_file: /path/secret.pem
