@@ -7,7 +7,7 @@
   file: path={{mirror_path}} state=directory recurse=yes owner=root group=root mode=0755
 
 - name: Set apt-mirror configuration file through template
-  template: src=mirror.list dest=/etc/apt/mirror.list owner=root group=root mode=0644
+  template: src=mirror.list.j2 dest=/etc/apt/mirror.list owner=root group=root mode=0644
   register: apt_mirror_install_result
 
 - name: Configure apt-mirror cron job, 每天3点同步
